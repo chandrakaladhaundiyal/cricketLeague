@@ -126,7 +126,7 @@ class Match extends CActiveRecord
     {
         $winner = '';
         try {
-            if($team_id != NULL){
+            if ($team_id != NULL) {
                 $winner = Team::model()->winner->name;
             }
             $match_data = Match::model()->findAll(array('select'=>'score','condition'=>'winner = :team or match_status = :status','params' => array(':team' => $team_id,':status' => '0')));
