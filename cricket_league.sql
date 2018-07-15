@@ -19,7 +19,13 @@ SET time_zone = "+00:00";
 --
 -- Database: `cricket_league`
 --
+CREATE DATABASE cricket_league;
+-- --------------------------------------------------------
 
+--
+-- Select database
+--
+USE cricket_league;
 -- --------------------------------------------------------
 
 --
