@@ -24,6 +24,6 @@ Yii 1 Framework
 #Getting Started
 1) Add assets folder in the root directory if not available.
 2) Import cricket_league.sql
-3) application can be accessed via URL - http://<domainName>/<rootDir>
+3) application can be accessed via URL - http://{domainName}/{rootDir}
 
 =================================================
