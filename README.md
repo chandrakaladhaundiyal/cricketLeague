@@ -6,6 +6,7 @@ On click of  view icon for the team list of players is shown.
 On click of fixtures button list of matches has been displayed with the date, teams involved and winning team.
 
 =================================================
+
 #Directory sctructure
 assets/             contains assets definition
 commands/           contains console commands (controllers)
@@ -16,11 +17,13 @@ runtime/            contains files generated during runtime
 views/              contains view files for the Web application
 
 =================================================
+
 #Requirements
 The minimum requirement by this application template that your Web server supports PHP 5.4.0.
 Yii 1 Framework
 
 =================================================
+
 #Getting Started
 1) Add assets folder in the root directory if not available.
 2) Import cricket_league.sql
