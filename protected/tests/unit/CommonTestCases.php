@@ -3,15 +3,15 @@ require_once('/../../../yii/framework/test/CDbTestCase.php');
 
 class CommonTestCases extends CTestCase{
 
-	public function executeQuery($sql){
-		$db = Yii::app()->db->pdoInstance;
+    public function executeQuery($sql){
+        $db = Yii::app()->db->pdoInstance;
         $query = $db->query($sql);
         $fetchAll = $query->fetchAll();
         return $fetchAll;
 
-	}
+    }
 
-	public function getTableArray($sql, $keyName = ''){
+    public function getTableArray($sql, $keyName = ''){
         $db = Yii::app()->db->pdoInstance;
         $query = $db->query($sql);
         $fetchAll = $query->fetchAll();
