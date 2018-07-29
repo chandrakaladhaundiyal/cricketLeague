@@ -6,7 +6,7 @@ return array(
     // uncomment the following lines to use a MySQL database
     'connectionString' => 'mysql:host=127.0.0.1;dbname=cricket_league',
     'emulatePrepare' => true,
-    'username' => 'cricketAdmin',
-    'password' => 'password',
+    'username' => 'root',
+    'password' => '',
     'charset' => 'utf8',
 );

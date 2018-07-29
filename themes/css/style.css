@@ -1,10 +1,15 @@
+.page_content {
+  min-height: calc(100vh - 70px);
+  padding: 40px 40px 0 40px;
+}
 .footer {
+    color:#333;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #1b1b1b;
-    color: white;
+    background: linear-gradient(to bottom, #ffffff, #f2f2f2) !important;
+    border: 1px solid #d4d4d4 !important;
     text-align: center;
 }
 
@@ -15,4 +20,12 @@
 
 .custom_header {
 	color : #0088cc;
+}
+
+.custom-label {
+    float: left;
+   
+    padding-top: 5px;
+    padding-right: 15px;
+    text-align: right;
 }

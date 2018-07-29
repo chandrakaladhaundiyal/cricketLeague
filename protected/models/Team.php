@@ -16,6 +16,9 @@ class Team extends CActiveRecord
     /**
      * @return string the associated database table name
      */
+
+    public $common_error;
+
     public function tableName()
     {
         return 'tbl_team';
@@ -29,10 +32,17 @@ class Team extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, logo, club_state, created_at', 'required'),
+            array('name, club_state', 'required'),
             array('name, logo', 'length', 'max'=>200),
+            array('logo', 'file', 'types'=>'jpg, jpeg, gif, png','allowEmpty'=>true),
+
+            //array('logo', 'file', 'types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>false, 'on'=>'create'),
+            //array('logo', 'file', 'types'=>'jpg, jpeg, gif, png', 'allowEmpty'=>true, 'on'=>'update'),
+    
+            //array('logo', 'file','types'=>'jpg, gif, png','maxSize'=>1024 * 1024 * 20,'allowEmpty'=>false),//max size 20MB
+            //array('logo', 'file','types'=>'jpg, gif, png','maxSize'=>1024 * 1024 * 20,'allowEmpty'=>true),//max size 20MB
             array('club_state', 'length', 'max'=>500),
-            array('updated_at', 'safe'),
+            array('updated_at,common_error', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('team_id, name, logo, club_state, created_at, updated_at', 'safe', 'on'=>'search'),
@@ -62,6 +72,7 @@ class Team extends CActiveRecord
             'club_state' => 'Club State',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'common_error' => 'Error'
         );
     }
 
@@ -89,6 +100,7 @@ class Team extends CActiveRecord
         $criteria->compare('club_state',$this->club_state,true);
         $criteria->compare('created_at',$this->created_at,true);
         $criteria->compare('updated_at',$this->updated_at,true);
+        $criteria->order = 'team_id DESC';
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -126,14 +138,30 @@ class Team extends CActiveRecord
      * @param integer $team_id .
      * @return integer $total_score.
      */
-    public static function getTotalScore($team_id)
+    public static function getTotalScore($team_id,$test_case = '')
     {
         $total_score = 0;
         try {
             $match_data = Match::model()->findAll(array('select'=>'score','condition'=>'(team1 = :team_first or team2 = :team_second) and (winner = :winnerTeam or winner is :tie) ','params' => array(':team_first' => $team_id,'team_second' => $team_id, 'winnerTeam' => $team_id , "tie" => NULL)));
+
+            if($test_case == 'Y'){
+                $count = count($match_data);
+                if($count > 0){
+                    $arr = array();
+                    foreach($match_data as $match)
+                        array_push($arr,$match->attributes);
+                } 
+
+                $match_data = $arr;
+            }
+
+
+            $data = array_sum(array_column($match_data, 'score'));
+
             if (!empty($match_data)) {
                 $total_score = array_sum(array_column($match_data,'score'));
             }
+
             return $total_score;
         } catch (Exception $ex) {
             return $total_score;
@@ -184,4 +212,21 @@ class Team extends CActiveRecord
             return 0;
         }
     }
+    
+    public static function checkTeamExist($team_name) {
+
+        try {
+            $team = Team::model()->find(array('condition'=>'upper(name) = :name','params'=>array('name'=>strtoupper($team_name))));
+
+            if(empty($team)){
+                return true;
+            } else {
+                return false;
+            }
+         } catch (Exception $ex) {
+            return false;
+        }
+    }
+    
+      
 }

@@ -21,7 +21,7 @@ $id = CHtml::encode($id);
                 array(
                     'name' => 'image',
                     'type' => 'image',
-                    'value' => 'Yii::app()->request->baseUrl."/themes/images/".$data->image', 'htmlOptions' => array('width' => '80px', 'height' => '80px'),
+                    'value' => 'Yii::app()->request->baseUrl."/themes/images/player_images/".$data->image', 'htmlOptions' => array('width' => '80px', 'height' => '80px'),
                 ),
                 array(
                     'header' => 'Player Name',

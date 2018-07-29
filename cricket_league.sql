@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2018 at 06:10 PM
+-- Generation Time: Jul 29, 2018 at 03:31 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -19,13 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `cricket_league`
 --
-CREATE DATABASE cricket_league;
--- --------------------------------------------------------
-
---
--- Select database
---
-USE cricket_league;
+CREATE DATABASE `cricket_league`;
 -- --------------------------------------------------------
 
 --
@@ -49,7 +43,6 @@ CREATE TABLE `tbl_match` (
 --
 
 INSERT INTO `tbl_match` (`match_id`, `team1`, `team2`, `match_date`, `match_status`, `winner`, `score`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '2018-06-01', '1', 1, 2, '2018-07-14 03:26:46', '2018-07-14 14:04:08'),
 (2, 1, 2, '2018-06-09', '1', 2, 2, '2018-07-14 03:26:46', '2018-07-14 14:04:27'),
 (3, 2, 1, '2018-06-17', '0', NULL, 1, '2018-07-14 03:27:58', '2018-07-15 14:23:04'),
 (4, 3, 2, '2018-06-30', '1', 3, 2, '2018-07-14 03:27:58', '2018-07-15 14:24:44'),
@@ -62,7 +55,9 @@ INSERT INTO `tbl_match` (`match_id`, `team1`, `team2`, `match_date`, `match_stat
 (11, 1, 3, '2018-05-08', '0', NULL, 1, '2018-07-14 05:26:52', '2018-07-14 14:06:30'),
 (12, 4, 3, '2018-05-14', '1', 4, 2, '2018-07-14 05:26:52', '2018-07-14 14:06:39'),
 (13, 4, 3, '2018-05-19', '1', 3, 2, '2018-07-14 05:28:22', '2018-07-14 14:06:46'),
-(14, 4, 3, '2018-07-14', '1', 4, 2, '2018-07-14 05:28:22', '2018-07-14 14:06:51');
+(14, 4, 3, '2018-07-14', '1', 4, 2, '2018-07-14 05:28:22', '2018-07-14 14:06:51'),
+(15, 3, 2, '2018-07-22', '1', 2, 2, '2018-07-29 13:21:47', NULL),
+(16, 4, 3, '2018-07-29', '1', 4, 2, '2018-07-29 13:24:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -188,10 +183,15 @@ ALTER TABLE `tbl_team`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_match`
+--
+ALTER TABLE `tbl_match`
+  MODIFY `match_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
 -- AUTO_INCREMENT for table `tbl_player`
 --
 ALTER TABLE `tbl_player`
-  MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `player_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `tbl_player_history`
 --
@@ -201,7 +201,7 @@ ALTER TABLE `tbl_player_history`
 -- AUTO_INCREMENT for table `tbl_team`
 --
 ALTER TABLE `tbl_team`
-  MODIFY `team_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `team_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

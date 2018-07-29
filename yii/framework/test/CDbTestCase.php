@@ -8,6 +8,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
+require_once('/../yii.php');
 Yii::import('system.test.CTestCase');
 
 /**

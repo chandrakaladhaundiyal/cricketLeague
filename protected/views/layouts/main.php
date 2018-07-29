@@ -17,36 +17,42 @@
     </head>
 
     <body>
+    <div id="page_content">
+        <?php $this->widget('bootstrap.widgets.TbNavbar',array(
+            'collapse'=>true,
+            'items'=>array(
+                array(
+                    'class'=>'bootstrap.widgets.TbMenu',
+                    'items'=>array(
+                        array('label'=>'Team', 'url'=>array('/team/index')),
+                        array('label'=>'Player', 'url'=>array('/player/admin')),
+                        array('label'=>'Match', 'url'=>array('/match/admin')),
+                    ),
+                    'htmlOptions'=> array('class' => 'navbar-custom'),
+                ),
+            ),
+        )); ?>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="<?php echo Yii::app()->homeUrl; ?>"> 	
-                        <?php echo CHtml::encode(Yii::app()->name); ?>
-                    </a>
-                </div>
-            </div>
-        </div><!-- mainmenu -->
+        <div class="container" id="page">
 
+          <?php if(isset($this->breadcrumbs)):?>
+            <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+              'links'=>$this->breadcrumbs,
+            )); ?><!-- breadcrumbs -->
+          <?php endif?>
+
+          <?php echo $content; ?>
+
+          <div class="clear"></div>
+      </div>
+
+      <footer class="footer">
         <div class="container">
-            <div  class="page-header">
-                <?php if (isset($this->breadcrumbs)): ?>
-                    <?php
-                    $this->widget('zii.widgets.CBreadcrumbs', array(
-                        'links' => $this->breadcrumbs,
-                    ));
-                    ?><!-- breadcrumbs -->
-                <?php endif ?>
-            </div>
-            <div class="content">
-                <?php echo $content; ?>
-            </div>
-
-            <div class="footer text-center">
-                Copyright &copy; <?php echo date('Y'); ?> by Cricket Association.<br/>
-                All Rights Reserved.<br/>
-            </div><!-- footer -->
+      
+        Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+        All Rights Reserved.<br/>        
+          
         </div>
-
+    </footer>
     </body>
 </html>

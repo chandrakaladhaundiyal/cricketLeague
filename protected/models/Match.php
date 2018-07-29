@@ -31,10 +31,11 @@ class Match extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('match_id', 'required'),
+            array('team1, team2, score, match_date, match_status', 'required'),
             array('match_id, team1, team2, winner, score', 'numerical', 'integerOnly'=>true),
             array('match_status', 'length', 'max'=>1),
             array('created_at, updated_at', 'safe'),
+            array('winner','getValidationforWinner'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('match_id, team1, team2,match_date, match_status, winner, score, created_at, updated_at', 'safe', 'on'=>'search'),
@@ -100,6 +101,7 @@ class Match extends CActiveRecord
         $criteria->compare('score',$this->score);
         $criteria->compare('created_at',$this->created_at,true);
         $criteria->compare('updated_at',$this->updated_at,true);
+        $criteria->order = 'match_id DESC';
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
@@ -122,20 +124,20 @@ class Match extends CActiveRecord
      * @param integer $team_id .
      * @return integer $total_score.
      */
-    public static function getWinner($team_id)
-    {
-        $winner = '';
-        try {
-            if ($team_id != NULL) {
-                $winner = Team::model()->winner->name;
-            }
-            $match_data = Match::model()->findAll(array('select'=>'score','condition'=>'winner = :team or match_status = :status','params' => array(':team' => $team_id,':status' => '0')));
-            if (!empty($match_data)) {
-                $total_score = array_sum(array_column($match_data,'score'));
-            }
-            return $total_score;
-        } catch (Exception $ex) {
-            return $total_score;
+
+    public static function getMatchStatus($status) {
+        if ($status == '1') {
+            return 'Completed';
+        } else {
+            return 'Tie';
+        }
+    }
+
+    public function getValidationforWinner(){
+
+        if($this->match_status == 1){
+            if($this->winner == '' || $this->winner == NULL)
+                $this->addError('winner','Winner cannot be blank');  
         }
     }
 }

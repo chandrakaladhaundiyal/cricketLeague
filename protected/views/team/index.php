@@ -13,6 +13,26 @@ $this->breadcrumbs = array(
 <h1>Teams</h1>
 
 <?php echo CHtml::button('fixtures', array('submit' => array('fixtures'), 'class' => 'btn btn-primary')); ?>
+&nbsp;&nbsp;&nbsp;
+<?php echo CHtml::button('Add Team', array('submit' => array('create'), 'class' => 'btn btn-primary')); ?>
+
+
+
+<div id="statusMsg">
+    <?php if(Yii::app()->user->hasFlash('success')) {?>
+    </br>
+        <div class="info" style="color:green">
+            <label><?php echo Yii::app()->user->getFlash('success'); ?></label>
+        </div>
+    <?php } ?>
+    <?php if(Yii::app()->user->hasFlash('error')) {?>
+    </br>
+        <div class="info" style="color:red">
+            <label><?php echo Yii::app()->user->getFlash('error'); ?></label>
+        </div>
+    <?php } ?>
+</div>
+
 
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
@@ -60,13 +80,15 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
-            'template' => '{view}',
+            'afterDelete'=>'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+            'template' => '{view}{update}{delete}',
             'buttons' => array
                 (
                 'view' =>
                 array(
                     'url' => 'Yii::app()->createUrl("team/players", array("id"=>$data->team_id))',
                     'options' => array(
+                    'title'=>'View Player List',
                         'ajax' => array(
                             'async' => true,
                             'type' => 'POST',

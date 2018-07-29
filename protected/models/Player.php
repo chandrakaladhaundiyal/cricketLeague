@@ -32,7 +32,8 @@ class Player extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('team_id, first_name, last_name, image, jersey_number, country, created_at', 'required'),
+            array('first_name, last_name,team_id, jersey_number, country', 'required'),
+            array('image', 'file','types'=>'jpg, gif, png','maxSize'=>1024 * 1024 * 20,'allowEmpty'=>true),//max size 20MB
             array('team_id, jersey_number', 'numerical', 'integerOnly'=>true),
             array('first_name, last_name, image, country', 'length', 'max'=>200),
             array('updated_at', 'safe'),
@@ -99,6 +100,7 @@ class Player extends CActiveRecord
         $criteria->compare('country',$this->country,true);
         $criteria->compare('created_at',$this->created_at,true);
         $criteria->compare('updated_at',$this->updated_at,true);
+        $criteria->order = 'player_id DESC';
 
         if ($id != '') {
             $criteria->AddCondition('team_id='.$id);
@@ -131,5 +133,21 @@ class Player extends CActiveRecord
     {
         return $this->first_name . ' ' . $this->last_name ; 
     }
-
+    
+    public static function getTeamName($team_id) {
+        $name = '';
+        if(!empty($team_id)) {
+            $teamModel = Team::model()->findByPk($team_id);
+            $name = (($teamModel->name) ? $teamModel->name : '');
+        }
+        return $name;
+    }
+    public static function checkPlayerExist($team_id) {
+        $name = '';
+        if(!empty($team_id)) {
+            $teamModel = Team::model()->findByPk($team_id);
+            $name = (($teamModel->name) ? $teamModel->name : '');
+        }
+        return $name;
+    }
 }
